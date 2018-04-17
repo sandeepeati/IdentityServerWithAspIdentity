@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Authentication;
+@{
+    ViewData["Title"] = "Secure";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h3>User Claims</h3>
+
+<div>
+    <a asp-action="CallApiUsingUserAccessToken">Call Api using user AccessToken</a>
+</div>
+<div>
+    <a asp-action="CallApiUsingClientCredentials">Call Api using application Identity</a>
+</div>
+
+<dl>
+    @foreach (var claim in User.Claims)
+    {
+        <dt>@claim.Type</dt>
+        <dd>@claim.Value</dd>
+    }
+
+    <dt>Access Token</dt>
+    <dd>@await ViewContext.HttpContext.GetTokenAsync("access_token")</dd>
+
+    <dt>Refresh Token</dt>
+    <dd>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</dd>
+</dl>
+
