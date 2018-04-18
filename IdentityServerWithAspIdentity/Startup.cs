@@ -14,6 +14,8 @@ using IdentityServerWithAspIdentity.Services;
 using System.Reflection;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.Services;
+using IdentityServerWithAspIdentity.Managers;
 
 namespace IdentityServerWithAspIdentity
 {
@@ -78,7 +80,6 @@ namespace IdentityServerWithAspIdentity
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-
             services.AddMvc();
 
             // conigure identity server with in memory stores, keys, clients and scopes
@@ -86,6 +87,7 @@ namespace IdentityServerWithAspIdentity
                 .AddDeveloperSigningCredential()
                 // this adds the users from asp dot net Identity
                 .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<IdentityManager>()
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
@@ -104,6 +106,8 @@ namespace IdentityServerWithAspIdentity
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 600; // 10minutes in seconds
                 });
+
+            //services.AddTransient<IProfileService, IdentityManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
