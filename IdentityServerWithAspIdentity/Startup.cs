@@ -87,7 +87,7 @@ namespace IdentityServerWithAspIdentity
                 .AddDeveloperSigningCredential()
                 // this adds the users from asp dot net Identity
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddProfileService<IdentityManager>()
+                //.AddProfileService<IdentityManager>()
                 // this adds the config data from DB (clients, resources)
                 .AddConfigurationStore(options =>
                 {
@@ -131,13 +131,13 @@ namespace IdentityServerWithAspIdentity
             // app.UseAuthentication not needed, since identityserver adds the authentication middleware
             //app.UseAuthentication();
             app.UseIdentityServer();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
