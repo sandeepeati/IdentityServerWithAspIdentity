@@ -20,6 +20,9 @@
         <dt>@claim.Type</dt>
         <dd>@claim.Value</dd>
     }
+    
+    <dt>Identity Token</dt>
+    <dd>@await ViewContext.HttpContext.GetTokenAsync("id_token")</dd>
 
     <dt>Access Token</dt>
     <dd>@await ViewContext.HttpContext.GetTokenAsync("access_token")</dd>
