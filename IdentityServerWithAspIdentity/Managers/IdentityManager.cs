@@ -33,7 +33,8 @@ namespace IdentityServerWithAspIdentity.Managers
             claims.Add(new System.Security.Claims.Claim(JwtClaimTypes.GivenName, user.UserName));
             claims.Add(new System.Security.Claims.Claim(IdentityServerConstants.StandardScopes.Email, user.Email));
             claims.Add(new System.Security.Claims.Claim(JwtClaimTypes.Id, user.TenantId));
-            context.IssuedClaims = claims;
+            //context.IssuedClaims.AddRange(claims);
+            context.AddRequestedClaims(claims);
         }
 
         public async Task IsActiveAsync(IsActiveContext context)

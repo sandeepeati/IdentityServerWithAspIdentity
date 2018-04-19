@@ -36,6 +36,7 @@ namespace IdentityServerWithAspIdentity
                     ClientId = "mvc",
                     ClientName = "MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+                    //AllowedGrantTypes = GrantTypes.Implicit,
 
                     RequireConsent = false,
 

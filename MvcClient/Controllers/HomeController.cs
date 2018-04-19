@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using IdentityModel.Client;
@@ -78,6 +79,27 @@ namespace MvcClient.Controllers
 
             ViewBag.Json = JArray.Parse(content).ToString();
             return View("json");
+        }
+
+        // this one is to check that if the access token was wrong 
+        // we get an unauthorized status 
+        public async Task<IActionResult> CallApiUsingWrongUserAccessToken()
+        {
+            try
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                accessToken += 'L';
+                var client = new HttpClient();
+                client.SetBearerToken(accessToken);
+                var content = await client.GetStringAsync("http://localhost:5001/identity");
+
+                ViewBag.Json = JArray.Parse(content).ToString();
+                return View("json");
+            }
+            catch (WebException e)
+            {
+                return View("unauthorized");
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace IdentityServerWithAspIdentity
         public void ConfigureServices(IServiceCollection services)
         {
             // connection string and migration assembly constants
-            const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=IdentityServerWithAspIdentityStores;trusted_connection=yes;";
+            const string connectionString = @"Data Source=(LocalDb)\MSSQLLocalDB;database=SpatikaServerStores;trusted_connection=yes;";
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
             services.AddDbContext<ApplicationDbContext>(options =>
